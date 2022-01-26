@@ -18,6 +18,8 @@
   "license": "ISC",
   "dependencies": {
     "discord.js": "^13.6.0",
-    "dotenv": "^14.2.0"
+    "dotenv": "^14.2.0",
+    "googleapis": "^92.0.0",
+    "node": "^17.4.0"
   }
 }
