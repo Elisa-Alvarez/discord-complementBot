@@ -4,8 +4,12 @@
   "description": "Complement and Roast discord bot.\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[Ds users when prompted.",
   "main": "main.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "main.js"
+    "dev": "npm start",
+    "start": "serve -s build",
+    "build": "npm build",
+    "test": "npm test --env=jsdom",
+    "eject": "npm eject",
+    "heroku-postbuild": "npm run build"
   },
   "repository": {
     "type": "git",
@@ -20,6 +24,7 @@
     "discord.js": "^13.6.0",
     "dotenv": "^14.2.0",
     "googleapis": "^92.0.0",
-    "node": "^17.4.0"
+    "node": "^17.4.0",
+    "serve": "^13.0.2"
   }
 }
