@@ -44,11 +44,4 @@ const getRows =  await googleSheets.spreadsheets.values.get({
   }
 
 }
-
-const d = new Date()
-const hours = d.getUTCHours()
-const min =  d.getUTCMinutes()
-
-if(hours && min === 0){
-  getSheetData()
-}
+getSheetData()
