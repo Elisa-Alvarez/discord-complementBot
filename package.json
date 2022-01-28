@@ -4,12 +4,9 @@
   "description": "Complement and Roast discord bot.\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[Ds users when prompted.",
   "main": "main.js",
   "scripts": {
-    "dev": "npm start",
-    "start": "node main.js ",
-    "build": "node main.js",
-    "test": "npm test --env=jsdom",
-    "eject": "npm eject",
-    "heroku-postbuild": "node main.js"
+    "start": "node main.js",
+    "test": "npm test --env=jsdom"
+
   },
   "repository": {
     "type": "git",
