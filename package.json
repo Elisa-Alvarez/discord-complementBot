@@ -9,7 +9,7 @@
     "build": "node main.js",
     "test": "npm test --env=jsdom",
     "eject": "npm eject",
-    "heroku-postbuild": "npm run build"
+    "heroku-postbuild": "node main.js"
   },
   "repository": {
     "type": "git",
