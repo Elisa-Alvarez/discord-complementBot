@@ -16,22 +16,47 @@ const gclient =  await auth.getClient();
   // Instance of Google Sheets API
 const googleSheets = google.sheets({ version: "v4", auth: gclient });
 
-const getRows =  await googleSheets.spreadsheets.values.get({
+const getRowsNSFW =  await googleSheets.spreadsheets.values.get({
+    auth,
+    spreadsheetId,
+    range: "NSFW COMPLIMENT!A:D",
+  });
+  const getRowsRoast =  await googleSheets.spreadsheets.values.get({
+    auth,
+    spreadsheetId,
+    range: "ROASTS!A:D",
+  });
+  const getRowsCompliments =  await googleSheets.spreadsheets.values.get({
     auth,
     spreadsheetId,
     range: "COMPLIMENT!A:D",
   });
 
-  const defaultArray = getRows.data.values
+  let compliment= getRowsCompliments.data.values
+  let nsfw = getRowsNSFW.data.values
+  let roasts =getRowsRoast.data.values
+  compliment.shift()
+  nsfw.shift()
+  roasts.shift()
   let currentJson ={}
   let jsonArr =[]  
-  defaultArray.forEach(index =>{
+  compliment.forEach(index =>{
     currentJson = {...currentJson,id:index[0], command:index[1], response:index[2]} 
     jsonArr.push(currentJson)
     
   })
-  jsonArr.shift()
-  
+
+  nsfw.forEach(index =>{
+    currentJson = {...currentJson,id:index[0], command:index[1], response:index[2]} 
+    jsonArr.push(currentJson)
+    
+  })
+  roasts.forEach(index =>{
+    currentJson = {...currentJson,id:index[0], command:index[1], response:index[2]} 
+    jsonArr.push(currentJson)
+    
+  })
+
   if(fs.existsSync('./data.json')){
     fs.unlinkSync('./data.json')
     fs.writeFile('./data.json',JSON.stringify(jsonArr), (err)=>{
