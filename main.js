@@ -4,36 +4,44 @@ const schedule = require('node-schedule')
 const { Client, Intents } = require('discord.js')
 const client = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES] });
 const prefix = ".="
-
+const {priaseCommand,flirtCommand,roastCommand} = require('./util')
+const priase = priaseCommand()
+const flirt = flirtCommand()
+const roast = roastCommand()
+console.log(roast)
 client.on("ready", () => {
   if(fs.existsSync('./data.json')){
   }else{
     async () =>await api
   }
   console.log(`Logged in as ${client.user.tag}!`)
-
 })
 
-
 client.on("messageCreate", msg => {
-  const data = require('./data.json')
     if (!msg.content.startsWith(prefix)|| msg.author.bot) return
-
     const args = msg.content.split(prefix.length).splice(/ +/);
     const userInput = args.shift().toLowerCase()
-    let i = Math.floor(Math.random()*data.length)
-
+    let rn = Math.floor(Math.random()*priase.length)
+    let fn=Math.floor(Math.random()*flirt.length)
+    let n=Math.floor(Math.random()*roast.length)
     switch (userInput){
-
-     case data[i].command:
-       
-        let res = data[i].response.replace("{user}", `${msg.author}`);
+     case priase[rn].command:
+        let res = priase[rn].response.replace("{user}", `${msg.author}`);
         res = res.replaceAll(/["|"]/g, ``)
         msg.channel.send(res);
         break
-     
+     case flirt[fn].command:
+      let fres = flirt[fn].response.replace("{user}", `${msg.author}`);
+      fres = fres.replaceAll(/["|"]/g, ``)
+      msg.channel.send(fres);
+        break
+     case roast[n].command:
+      let burnres = roast[n].response.replace("{user}", `${msg.author}`);
+      burnres = burnres.replaceAll(/["|"]/g, ``)
+      msg.channel.send(burnres);
+        break
      default:
-     break
+        break
      }
 
     
