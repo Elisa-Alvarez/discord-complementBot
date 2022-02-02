@@ -3,7 +3,7 @@ fs = require('fs')
 const { google } = require("googleapis");
 const spreadsheetId = process.env.SPREADSHEETID
 
- async function getSheetData (){
+async function getSheetData(){
 
 const auth =  new google.auth.GoogleAuth({
     keyFile: "credentials.json",
@@ -45,3 +45,4 @@ const getRows =  await googleSheets.spreadsheets.values.get({
 
 }
 getSheetData()
+module.exports= {getSheetData}
