@@ -6,9 +6,12 @@ const client = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_
 const prefix = ".="
 
 if(fs.existsSync('./data.json')){
-  return
+  const data = require('./data.json')
+  return data
 }else{
   async () =>await api
+  const data = require('./data.json')
+  return data
 }
 
 client.on("ready", () => {
@@ -25,11 +28,11 @@ client.on("messageCreate", msg => {
 
     switch (userInput){
 
-    //  case data[0].command:
-        // let res = data[0].response.replace("{user}", `${msg.author}`);
-        // res = res.replaceAll(/["|"]/g, ``)
-        // msg.channel.send(res);
-        // break
+     case data[0].command:
+        let res = data[0].response.replace("{user}", `${msg.author}`);
+        res = res.replaceAll(/["|"]/g, ``)
+        msg.channel.send(res);
+        break
       //Move the replace funtion to utils file and import as a varible
      case '/burn':
      msg.channel.send("You Suck Frogs");
