@@ -35,11 +35,14 @@ const getRowsNSFW =  await googleSheets.spreadsheets.values.get({
   let compliment= getRowsCompliments.data.values
   let nsfw = getRowsNSFW.data.values
   let roasts =getRowsRoast.data.values
+
   compliment.shift()
   nsfw.shift()
   roasts.shift()
+
   let currentJson ={}
   let jsonArr =[]  
+  
   compliment.forEach(index =>{
     currentJson = {...currentJson,id:index[0], command:index[1], response:index[2]} 
     jsonArr.push(currentJson)
@@ -51,6 +54,7 @@ const getRowsNSFW =  await googleSheets.spreadsheets.values.get({
     jsonArr.push(currentJson)
     
   })
+
   roasts.forEach(index =>{
     currentJson = {...currentJson,id:index[0], command:index[1], response:index[2]} 
     jsonArr.push(currentJson)

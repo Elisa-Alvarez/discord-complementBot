@@ -19,14 +19,20 @@ client.on("ready", () => {
 })
 
 client.on("messageCreate", msg => {
-    if (!msg.content.startsWith(prefix)|| msg.author.bot) return
+  //if prefix of the command is not given bot will ignore  
+  if (!msg.content.startsWith(prefix)|| msg.author.bot) return
+
     const nsfwChannel = 'art'
     const args = msg.content.split(prefix.length).splice(/ +/);
     const userInput = args.shift().toLowerCase()
+  //each command may have a different # of responses this goes off the length of the 
+  //coresponding array objects
     let rn = Math.floor(Math.random()*priase.length)
     let fn=Math.floor(Math.random()*flirt.length)
     let n=Math.floor(Math.random()*roast.length)
- 
+ //All messages are lower cased then the imput is the prefix and the command
+ //compares it to the command in the array object(array object created by command in util.js)
+ // and replys so the user can see the bots response
     switch (userInput){
      case priase[rn].command:
         let res = priase[rn].response.replace("{user}", `${msg.author}`);
@@ -41,6 +47,8 @@ client.on("messageCreate", msg => {
      default:
         break
      }
+     // This checks to see if user is in the correct channel for nsfw even 
+     //if emoji's are used it should still work
      if( flirt[fn].command && msg.channel.name.startsWith(nsfwChannel)){
       let fres = flirt[fn].response.replace("{user}", `${msg.author}`);
       fres = fres.replaceAll(/["|"]/g, ``)
