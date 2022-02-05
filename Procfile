@@ -1,1 +1,1 @@
-worker: node main.js
+worker: node api.js node util.js node main.js
