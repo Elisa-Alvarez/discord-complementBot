@@ -1,4 +1,5 @@
 require("dotenv").config();
+fs = require('fs')
 const api = require('./api')
 const schedule = require('node-schedule')
 const { Client, Intents } = require('discord.js')
