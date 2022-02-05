@@ -1,11 +1,12 @@
 
 const priaseCommand = () =>{
 if(fs.existsSync('./data.json')){
+  let data = requrie('./data.json')
+  return data
 }else{
   async () =>await api
 }
-  let data = require('./data.json')
- ata
+
 
  
     let priase =[]
