@@ -11,7 +11,7 @@ const roast = roastCommand()
 
 client.on("ready", () => {
   if(fs.existsSync('./data.json')){
-    console.log(Date.UTC)
+    // console.log(Date.UTC)
   }else{
     async () =>await api
   }
@@ -31,12 +31,12 @@ client.on("messageCreate", msg => {
      case priase[rn].command:
         let res = priase[rn].response.replace("{user}", `${msg.author}`);
         res = res.replaceAll(/["|"]/g, ``)
-        msg.channel.send(res);
+        msg.reply(res);
         break
      case roast[n].command:
       let burnres = roast[n].response.replace("{user}", `${msg.author}`);
       burnres = burnres.replaceAll(/["|"]/g, ``)
-      msg.channel.send(burnres);
+      msg.reply(burnres);
         break
      default:
         break
@@ -44,10 +44,14 @@ client.on("messageCreate", msg => {
      if( flirt[fn].command && msg.channel.name.startsWith(nsfwChannel)){
       let fres = flirt[fn].response.replace("{user}", `${msg.author}`);
       fres = fres.replaceAll(/["|"]/g, ``)
-       return msg.channel.send(fres);
+       return msg.reply(fres);
      }
     else{
-        return  msg.channel.send(`Sorry my boss is watching, if you want to be flirty let's head to the art channel ${msg.author}`)
+        const nsfw = msg.guild.channels.cache.find((chId)=>{
+            return chId.name.startsWith(nsfwChannel)
+        })
+        console.log(nsfw)
+        return  msg.reply(`Sorry my boss is watching, if you want to be flirty ${msg.author} let's head to the ${nsfw}!`)
     }
 
     
