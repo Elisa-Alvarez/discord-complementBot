@@ -1,25 +1,25 @@
 require("dotenv").config();
 fs = require('fs')
-const api = require('./api')
+const {getSheetData} = require('./api')
 const schedule = require('node-schedule')
 const { Client, Intents } = require('discord.js')
 const client = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES] });
 const prefix = process.env.PREFIX
 const {priaseCommand,flirtCommand,roastCommand} = require('./util')
-const priase = priaseCommand()
-const flirt = flirtCommand()
-const roast = roastCommand()
 
+if(fs.existsSync('./data.json')){
+}else{
+  getSheetData()
+}
+//Starts the bot
 client.on("ready", () => {
-  if(fs.existsSync('./data.json')){
-    // console.log(Date.UTC)
-  }else{
-    async () =>await api
-  }
   console.log(`Logged in as ${client.user.tag}!`)
 })
 
 client.on("messageCreate", msg => {
+const priase = priaseCommand()
+const flirt = flirtCommand()
+const roast = roastCommand()
   //if prefix of the command is not given bot will ignore  
   if (!msg.content.startsWith(prefix)|| msg.author.bot) return
 
