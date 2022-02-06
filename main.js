@@ -23,7 +23,7 @@ const roast = roastCommand()
   //if prefix of the command is not given bot will ignore  
   if (!msg.content.startsWith(prefix)|| msg.author.bot) return
 
-    const nsfwChannel = 'art'
+    const nsfwChannel = 'flirty-fruits'
     const args = msg.content.split(prefix.length).splice(/ +/);
     const userInput = args.shift().toLowerCase()
   //each command may have a different # of responses this goes off the length of the 
