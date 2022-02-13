@@ -19,26 +19,47 @@ const googleSheets = google.sheets({ version: "v4", auth: gclient });
 const getRowsNSFW =  await googleSheets.spreadsheets.values.get({
     auth,
     spreadsheetId,
-    range: "NSFW COMPLIMENT!A:D",
+    range: "NSFW COMPLIMENT!A:C",
   });
   const getRowsRoast =  await googleSheets.spreadsheets.values.get({
     auth,
     spreadsheetId,
-    range: "ROASTS!A:D",
+    range: "ROASTS!A:C",
   });
   const getRowsCompliments =  await googleSheets.spreadsheets.values.get({
     auth,
     spreadsheetId,
     range: "COMPLIMENT!A:D",
   });
+  const getRowsDare = await googleSheets.spreadsheets.values.get({
+    auth,
+    spreadsheetId,
+    range: "DARE!A:C",
+  });
+  const getRowsTruth = await googleSheets.spreadsheets.values.get({
+    auth,
+    spreadsheetId,
+    range: "TRUTH!A:C",
+  });
+  const getRowsWYR = await googleSheets.spreadsheets.values.get({
+    auth,
+    spreadsheetId,
+    range: "Would you rather (WYR)!A:D",
+  });
 
-  let compliment= getRowsCompliments.data.values
-  let nsfw = getRowsNSFW.data.values
+  let compliment =getRowsCompliments.data.values
+  let nsfw =getRowsNSFW.data.values
   let roasts =getRowsRoast.data.values
+  let dare =getRowsDare.data.values
+  let truth =getRowsTruth.data.values
+  let wyr =getRowsWYR.data.values
 
   compliment.shift()
   nsfw.shift()
   roasts.shift()
+  dare.shift()
+  truth.shift()
+  wyr.shift()
 
   let currentJson ={}
   let jsonArr =[]  
@@ -57,6 +78,24 @@ const getRowsNSFW =  await googleSheets.spreadsheets.values.get({
 
   roasts.forEach(index =>{
     currentJson = {...currentJson,id:index[0], command:index[1], response:index[2]} 
+    jsonArr.push(currentJson)
+    
+  })
+
+  truth.forEach(index =>{
+    currentJson = {...currentJson,id:index[0], command:index[1], response:index[2]} 
+    jsonArr.push(currentJson)
+    
+  })
+
+  dare.forEach(index =>{
+    currentJson = {...currentJson,id:index[0], command:index[1], response:index[2]} 
+    jsonArr.push(currentJson)
+    
+  })
+
+  wyr.forEach(index =>{
+    currentJson = {...currentJson,id:index[0], command:index[1], responseOne:index[2],responseTwo:index[3]} 
     jsonArr.push(currentJson)
     
   })
