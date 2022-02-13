@@ -32,6 +32,7 @@ const wyr = wyrCommand()
     let rn = Math.floor(Math.random()*praise.length)
     let fn=Math.floor(Math.random()*flirt.length)
     let n=Math.floor(Math.random()*roast.length)
+    let wn=Math.floor(Math.random()*wyr.length)
  //All messages are lower cased then the imput is the prefix and the command
  //compares it to the command in the array object(array object created by command in util.js)
  // and replys so the user can see the bots response
