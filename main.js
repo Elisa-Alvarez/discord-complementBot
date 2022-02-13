@@ -48,10 +48,13 @@ const wyr = wyrCommand()
       msg.reply(burn);
         break
      case wyr[wn].command:
-      let ratherOne = wyr[wn].responseOne.replace("{user}", `${msg.author}`);
+      let ratherOne = wyr[wn].response.replace("{user}", `${msg.author}`);
       let ratherTwo = wyr[wn].responseTwo.replace("{user}", `${msg.author}`);
-      rather = rather.replaceAll(/["|"]/g, ``)
-      msg.reply(`Would you rather ${ratherOne} or ${ratherTwo}`);
+      ratherOne = ratherOne.replaceAll(/["|"]/g, ``)
+      ratherTwo = ratherTwo.replaceAll(/["|"]/g, ``)
+      msg.reply(`Would you rather ${ratherOne} 
+      or
+       ${ratherTwo}`);
         break
      default:
         break
