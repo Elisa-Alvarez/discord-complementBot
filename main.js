@@ -48,8 +48,8 @@ const wyr = wyrCommand()
       msg.reply(burn);
         break
      case wyr[wn].command:
-      let ratherOne = roast[n].responseOne.replace("{user}", `${msg.author}`);
-      let ratherTwo = roast[n].responseTwo.replace("{user}", `${msg.author}`);
+      let ratherOne = wyr[wn].responseOne.replace("{user}", `${msg.author}`);
+      let ratherTwo = wyr[wn].responseTwo.replace("{user}", `${msg.author}`);
       rather = rather.replaceAll(/["|"]/g, ``)
       msg.reply(`Would you rather ${ratherOne} or ${ratherTwo}`);
         break

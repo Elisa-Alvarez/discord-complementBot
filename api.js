@@ -95,7 +95,8 @@ const getRowsNSFW =  await googleSheets.spreadsheets.values.get({
   })
 
   wyr.forEach(index =>{
-    currentJson = {...currentJson,id:index[0], command:index[1], responseOne:index[2],responseTwo:index[3]} 
+    currentJson = {...currentJson,id:index[0], command:index[1], response:index[2],responseTwo:index[3]} 
+    console.log(currentJson)
     jsonArr.push(currentJson)
     
   })
