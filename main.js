@@ -5,7 +5,7 @@ const schedule = require('node-schedule')
 const { Client, Intents } = require('discord.js')
 const client = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES] });
 const prefix = process.env.PREFIX
-const {praiseCommand,flirtCommand,roastCommand} = require('./util')
+const {praiseCommand,flirtCommand,roastCommand,wyrCommand,dareCommand,truthCommand} = require('./util')
 
 if(fs.existsSync('./data.json')){
 }else{
@@ -20,6 +20,7 @@ client.on("messageCreate", msg => {
 const praise = praiseCommand()
 const flirt = flirtCommand()
 const roast = roastCommand()
+const wyr = wyrCommand()
   //if prefix of the command is not given bot will ignore  
   if (!msg.content.startsWith(prefix)|| msg.author.bot) return
 
@@ -41,9 +42,15 @@ const roast = roastCommand()
         msg.reply(res);
         break
      case roast[n].command:
-      let burnres = roast[n].response.replace("{user}", `${msg.author}`);
-      burnres = burnres.replaceAll(/["|"]/g, ``)
-      msg.reply(burnres);
+      let burn = roast[n].response.replace("{user}", `${msg.author}`);
+      burn = burn.replaceAll(/["|"]/g, ``)
+      msg.reply(burn);
+        break
+     case wyr[wn].command:
+      let ratherOne = roast[n].responseOne.replace("{user}", `${msg.author}`);
+      let ratherTwo = roast[n].responseTwo.replace("{user}", `${msg.author}`);
+      rather = rather.replaceAll(/["|"]/g, ``)
+      msg.reply(`Would you rather ${ratherOne} or ${ratherTwo}`);
         break
      default:
         break

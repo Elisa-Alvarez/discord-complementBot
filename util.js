@@ -31,4 +31,28 @@ const roastCommand = () =>{
   return roast
 }
 
-module.exports = {praiseCommand,flirtCommand,roastCommand}
+const dareCommand = () =>{
+  let data = require('./data.json')
+  let dare =[]
+  data.forEach(index =>{
+      if(index.command === "=dare")truth.push(index)
+  })
+  return truth
+}
+const truthCommand = () =>{
+  let data = require('./data.json')
+  let truth =[]
+  data.forEach(index =>{
+      if(index.command === "=truth")truth.push(index)
+  })
+  return truth
+}
+const wyrCommand = () =>{
+  let data = require('./data.json')
+  let wyr =[]
+  data.forEach(index =>{
+      if(index.command === "=wyr")wyr.push(index)
+  })
+  return wyr
+}
+module.exports = {praiseCommand,flirtCommand,roastCommand,dareCommand,truthCommand,wyrCommand}
