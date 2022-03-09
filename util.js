@@ -35,9 +35,9 @@ const dareCommand = () =>{
   let data = require('./data.json')
   let dare =[]
   data.forEach(index =>{
-      if(index.command === "=dare")truth.push(index)
+      if(index.command === "=dare")dare.push(index)
   })
-  return truth
+  return dare
 }
 const truthCommand = () =>{
   let data = require('./data.json')
@@ -55,4 +55,6 @@ const wyrCommand = () =>{
   })
   return wyr
 }
+
+
 module.exports = {praiseCommand,flirtCommand,roastCommand,dareCommand,truthCommand,wyrCommand}

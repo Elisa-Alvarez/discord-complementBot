@@ -2,7 +2,7 @@ require("dotenv").config();
 fs = require('fs')
 const {getSheetData} = require('./api')
 const schedule = require('node-schedule')
-const { Client, Intents } = require('discord.js')
+const { Client, Intents, Message, MessageMentions } = require('discord.js')
 const client = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES] });
 const prefix = process.env.PREFIX
 const {praiseCommand,flirtCommand,roastCommand,wyrCommand,dareCommand,truthCommand} = require('./util')
@@ -23,12 +23,14 @@ const roast = roastCommand()
 const wyr = wyrCommand()
 const dare=dareCommand()
 const truth=truthCommand()
-  //if prefix of the command is not given bot will ignore  
-  if (!msg.content.startsWith(prefix)|| msg.author.bot) return
 
+ //if prefix of the command is not given bot will ignore  
+  if (!msg.content.startsWith(prefix)|| msg.author.bot) return
+  
     const nsfwChannel = 'flirty-fruits'
     const args = msg.content.split(prefix.length).splice(/ +/);
     const userInput = args.shift().toLowerCase()
+    const taggedUser = msg.mentions.users.first()
   //each command may have a different # of responses this goes off the length of the 
   //coresponding array objects
     let pn = Math.floor(Math.random()*praise.length)
@@ -37,14 +39,19 @@ const truth=truthCommand()
     let wn=Math.floor(Math.random()*wyr.length)
     let dn=Math.floor(Math.random()*dare.length)
     let tn=Math.floor(Math.random()*truth.length)
- //All messages are lower cased then the imput is the prefix and the command
- //compares it to the command in the array object(array object created by command in util.js)
- // and replys so the user can see the bots response
+   if(userInput && taggedUser){
+      // praise[pn].command
+      let Tagres = praise[pn].response.replace("{user}", `@${taggedUser.username}`);
+      Tagres = Tagres.replaceAll(/["|"]/g, ``)
+      return msg.channel.send(Tagres);
+
+    
+   }
     switch (userInput){
      case praise[pn].command:
         let res = praise[pn].response.replace("{user}", `${msg.author}`);
         res = res.replaceAll(/["|"]/g, ``)
-        msg.reply(res);
+        msg.channel.send(res);
         break
      case roast[rn].command:
       let burn = roast[rn].response.replace("{user}", `${msg.author}`);
