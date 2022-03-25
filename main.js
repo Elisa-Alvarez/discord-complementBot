@@ -1,7 +1,6 @@
 require("dotenv").config();
-fs = require('fs')
-const cron = require('node-cron')
 const {getSheetData} = require('./api')
+fs = require('fs')
 const { Client, Intents} = require('discord.js')
 const client = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES] });
 const prefix = process.env.PREFIX
@@ -12,43 +11,53 @@ const {
   wyrCommand,
   dareCommand,
   truthCommand,
-  selfieCommand,
-
+  selfieCommand
 } = require('./util');
 
 if(fs.existsSync('./data.json')){
 }else{
-  getSheetData()
+ getSheetData()
 }
-function sundSelfie (){
-  let oldSelfie=[]
-  let sn = Math.floor(Math.random()*selfie.length)
-  if(oldSelfie.includes[selfie[sn].response]){
-      sn=Math.floor(Math.random()*selfie.length)
-  }
-  let message = `Happy Selfie Sunday @Everyone! Today's theme is **${selfie[sn].response}**! Let's see your selfies fruits!!🍓💖🙃`
-  oldSelfie.push(message)
-  return message
-}
-const selfie = selfieCommand()
+
 
 //Starts the bot
 client.on("ready", ()=> {
   console.log(`Logged in as ${client.user.tag}!`)
-  
+
+  let oldSelfie = []
+  const selfie = selfieCommand()
+
   setInterval(()=>{
     let d = new Date()
-   console.log
-    const channelName='art🎨'
-
-    if(d.getDay()===1 && d.getUTCHours() === 13){
+   console.log(d.getMinutes())
+    const channelName='selfie-sunday'
+    
+    if(d.getDay()===1 && d.getUTCHours() === 13 && d.getMinutes() === 0){
+      
       let sn=Math.floor(Math.random()*selfie.length)
-      let message = `Happy Selfie Sunday @Everyone! Today's theme is **${selfie[sn].response}** Let's see your selfies fruits!!🍓💖🙃`
       const channel = client.channels.cache.find(channel => channel.name === channelName)
-      channel.send(message)
-    }
 
-  },1000)
+      if(selfie[sn] === undefined){
+       let message = "Sorry, I ran out of Selfie Sunday ideas 😭!"
+       channel.send(message)
+      }
+      else if (oldSelfie.includes(selfie[sn].response)){
+        let nsn = Math.floor(Math.random()*selfie.length)
+        let message = `Happy Selfie Sunday @Everyone! Today's theme is **${selfie[nsn].response}** Let's see your selfies fruits!!🍓💖🙃`
+        channel.send(message)
+        oldSelfie.push(message)
+      }
+      else
+      {
+        let message = `Happy Selfie Sunday @Everyone! Today's theme is **${selfie[sn].response}** Let's see your selfies fruits!!🍓💖🙃`
+        channel.send(message)
+        oldSelfie.push(message)
+      }
+        
+         return oldSelfie
+    }
+    
+  },50000)
 })
 
 client.on("messageCreate", msg => {

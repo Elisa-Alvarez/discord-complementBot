@@ -123,4 +123,33 @@ const getRowsNSFW =  await googleSheets.spreadsheets.values.get({
   }
 
 }
+// const deleteSelfieTheme = async(props)=>{
+//   const auth =  new google.auth.GoogleAuth({
+//     keyFile: "credentials.json",
+//     scopes: "https://www.googleapis.com/auth/spreadsheets.readonly",
+//   });
+  
+//   // Create client instance for auth
+//   const gclient =  await auth.getClient();
+
+//   // Instance of Google Sheets API
+//   const googleSheets = google.sheets({ version: "v4", auth: gclient });
+
+//   const updateOldSelfies ={
+//     auth,
+//     spreadsheetId,
+//     range:"Old Selfie Sunday Themes!A2:A",
+//     valueInputOption:'USER_ENTERED',
+//     response:{values:props}
+//   }
+//   const updateRowsOldSelfie = await googleSheets.spreadsheets.values.update(
+//     updateOldSelfies
+//   )
+//   const deleteRowsSelfie = await googleSheets.spreadsheets.values.get({
+//     auth,
+//     spreadsheetId,
+//     range: "Selfie Sunday Themes!A:C",
+//   });
+// }
+// console.log(deleteSelfieTheme(['potato','yellow']))
 module.exports= {getSheetData}

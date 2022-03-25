@@ -1,9 +1,5 @@
 fs = require('fs')
-const {getSheetData} = require('./api')
-if(fs.existsSync('./data.json')){
-}else{
- getSheetData()
-}
+
 
 const praiseCommand = () =>{
   let data = require('./data.json')
@@ -59,7 +55,7 @@ const selfieCommand =() =>{
   let data = require('./data.json')
   let selfie =[]
   data.forEach(index =>{
-      if(index.command === "0 14 * * SUN")selfie.push(index)
+      if(index.command === "Sunday")selfie.push(index)
   })
   return selfie
 }
@@ -74,5 +70,5 @@ module.exports = {
   dareCommand,
   truthCommand,
   wyrCommand,
-  selfieCommand,
+  selfieCommand
 }
