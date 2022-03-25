@@ -21,6 +21,7 @@
     "dotenv": "^14.2.0",
     "googleapis": "^92.0.0",
     "node": "^17.4.0",
+    "node-cron": "^3.0.0",
     "node-schedule": "^2.1.0",
     "serve": "^13.0.2"
   }

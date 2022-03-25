@@ -1,6 +1,5 @@
 fs = require('fs')
 const {getSheetData} = require('./api')
-
 if(fs.existsSync('./data.json')){
 }else{
  getSheetData()
@@ -8,11 +7,11 @@ if(fs.existsSync('./data.json')){
 
 const praiseCommand = () =>{
   let data = require('./data.json')
-  let priase =[]
+  let praise =[]
   data.forEach(index =>{
-      if(index.command === "=praise")priase.push(index)
+      if(index.command === "=praise")praise.push(index)
   })
-  return priase
+  return praise
 }
 const flirtCommand = () =>{
   let data = require('./data.json')
@@ -56,5 +55,24 @@ const wyrCommand = () =>{
   return wyr
 }
 
+const selfieCommand =() =>{
+  let data = require('./data.json')
+  let selfie =[]
+  data.forEach(index =>{
+      if(index.command === "0 14 * * SUN")selfie.push(index)
+  })
+  return selfie
+}
 
-module.exports = {praiseCommand,flirtCommand,roastCommand,dareCommand,truthCommand,wyrCommand}
+
+
+
+module.exports = {
+  praiseCommand,
+  flirtCommand,
+  roastCommand,
+  dareCommand,
+  truthCommand,
+  wyrCommand,
+  selfieCommand,
+}

@@ -46,7 +46,12 @@ const getRowsNSFW =  await googleSheets.spreadsheets.values.get({
     spreadsheetId,
     range: "Would you rather (WYR)!A:D",
   });
-
+  const getRowsSelfie = await googleSheets.spreadsheets.values.get({
+    auth,
+    spreadsheetId,
+    range: "Selfie Sunday Themes!A:C",
+  });
+  let selfie = getRowsSelfie.data.values
   let compliment =getRowsCompliments.data.values
   let nsfw =getRowsNSFW.data.values
   let roasts =getRowsRoast.data.values
@@ -60,6 +65,7 @@ const getRowsNSFW =  await googleSheets.spreadsheets.values.get({
   dare.shift()
   truth.shift()
   wyr.shift()
+  selfie.shift()
 
   let currentJson ={}
   let jsonArr =[]  
@@ -93,12 +99,17 @@ const getRowsNSFW =  await googleSheets.spreadsheets.values.get({
     jsonArr.push(currentJson)
     
   })
-
+  selfie.forEach(index=>{
+    currentJson ={...currentJson,id:index[0],command:index[1], response:index[2]}
+    jsonArr.push(currentJson)
+  })
   wyr.forEach(index =>{
     currentJson = {...currentJson,id:index[0], command:index[1], response:index[2],responseTwo:index[3]} 
     jsonArr.push(currentJson)
     
   })
+
+
 
   if(fs.existsSync('./data.json')){
     fs.unlinkSync('./data.json')
@@ -112,5 +123,4 @@ const getRowsNSFW =  await googleSheets.spreadsheets.values.get({
   }
 
 }
-getSheetData()
 module.exports= {getSheetData}
