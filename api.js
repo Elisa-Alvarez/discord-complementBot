@@ -152,6 +152,8 @@ async function updateSheetData (props){
   .catch(err => {return console.log(err)});
 }
 
+
+
 async function deleteOldData (props){
 
   let authClient =  new google.auth.GoogleAuth({
@@ -164,7 +166,7 @@ async function deleteOldData (props){
 
   const request = {
     spreadsheetId, 
-    range: `Selfie Sunday Themes!A:C`,  
+    range: `Copy of Selfie Sunday Themes!A:C`,  
     auth: authClient,
   };
 
@@ -182,7 +184,7 @@ async function deleteOldData (props){
         resource: {
           // The ranges to clear, in A1 notation.
           ranges: [
-            `Selfie Sunday Themes!A${index+1}:C${index+1}`
+            `Copy of Selfie Sunday Themes!A${index+1}:C${index+1}`
           ],  // TODO: Update placeholder value.
     
           // TODO: Add desired properties to the request body.

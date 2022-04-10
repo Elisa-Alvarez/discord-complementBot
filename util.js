@@ -1,5 +1,5 @@
 fs = require('fs')
-const {getSheetData, updateSheetData, deleteOldData} = require('./api')
+const {getSheetData} = require('./api')
 
 if(fs.existsSync('./data.json')){
 }else{
