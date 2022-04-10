@@ -1,6 +1,10 @@
 fs = require('fs')
+const {getSheetData, updateSheetData, deleteOldData} = require('./api')
 
-
+if(fs.existsSync('./data.json')){
+}else{
+ getSheetData()
+}
 const praiseCommand = () =>{
   let data = require('./data.json')
   let praise =[]

@@ -23,9 +23,10 @@ if(fs.existsSync('./data.json')){
 //Starts the bot
 client.on("ready", ()=> {
   console.log(`Logged in as ${client.user.tag}!`)
-  const selfie = selfieCommand()
+  
 
   setInterval(()=>{
+    const selfie = selfieCommand()
     let d = new Date()
     const channelName='selfie-sunday🥸'
     //Sets the time to 9:00am in UTC time
@@ -52,7 +53,7 @@ client.on("ready", ()=> {
          console.log(selfie)
     }
     
-  },100)///50 second interval
+  },5800)///50 second interval
 })
 
 client.on("messageCreate", msg => {
