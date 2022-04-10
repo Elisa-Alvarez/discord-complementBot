@@ -27,7 +27,7 @@ client.on("ready", ()=> {
 
   setInterval(()=>{
     let d = new Date()
-    const channelName='art🎨'
+    const channelName='selfie-sunday🥸'
     //Sets the time to 9:00am in UTC time
     if(d.getDay()===1 && d.getUTCHours() === 13 && d.getMinutes === 0 ){
       let sn=Math.floor(Math.random()*selfie.length)
