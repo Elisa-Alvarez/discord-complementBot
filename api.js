@@ -166,7 +166,7 @@ async function deleteOldData (props){
 
   const request = {
     spreadsheetId, 
-    range: `Copy of Selfie Sunday Themes!A:C`,  
+    range: `Selfie Sunday Themes!A:C`,  
     auth: authClient,
   };
 

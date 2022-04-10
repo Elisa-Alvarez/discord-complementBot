@@ -30,7 +30,7 @@ client.on("ready", ()=> {
     let d = new Date()
     const channelName='selfie-sunday🥸'
     //Sets the time to 9:00am in UTC time
-    if(d.getDay()===0 && d.getUTCHours() === 22 && d.getMinutes === 40 ){
+    if(d.getDay()===0 && d.getUTCHours() === 13){
       let sn=Math.floor(Math.random()*selfie.length)
       const channel = client.channels.cache.find(channel => channel.name === channelName)
       //if value in array does not exsit returns the value of undefined
@@ -44,14 +44,14 @@ client.on("ready", ()=> {
         channel.send(message)
         // Appends to the Old Selfie sheet in column A
         updateSheetData(selfie[sn].response)
-        // Deletes entire rows, based on id
+        // Clears entire rows, based on response
         deleteOldData(selfie[sn].response)
         //Pulls in the updated sheet after data has been deleted
         getSheetData()
       }
     }
     
-  },5800)///50 second interval
+  },58000)///58 second interval
 })
 
 client.on("messageCreate", msg => {
