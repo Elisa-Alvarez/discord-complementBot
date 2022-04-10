@@ -1,5 +1,5 @@
 require("dotenv").config();
-const {getSheetData} = require('./api')
+const {getSheetData, updateSheetData} = require('./api')
 fs = require('fs')
 const { Client, Intents} = require('discord.js')
 const client = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES] });
@@ -23,41 +23,36 @@ if(fs.existsSync('./data.json')){
 //Starts the bot
 client.on("ready", ()=> {
   console.log(`Logged in as ${client.user.tag}!`)
-
-  let oldSelfie = []
   const selfie = selfieCommand()
 
   setInterval(()=>{
     let d = new Date()
-   console.log(d.getMinutes())
-    const channelName='selfie-sunday'
-    
-    if(d.getDay()===1 && d.getUTCHours() === 13 && d.getMinutes() === 0){
-      
+    const channelName='art🎨'
+    //Sets the time to 9:00am in UTC time
+    if(d.getDay()===1 && d.getUTCHours() === 13 && d.getMinutes === 0 ){
       let sn=Math.floor(Math.random()*selfie.length)
       const channel = client.channels.cache.find(channel => channel.name === channelName)
-
+      //if value in array does not exsit returns the value of undefined
       if(selfie[sn] === undefined){
        let message = "Sorry, I ran out of Selfie Sunday ideas 😭!"
        channel.send(message)
-      }
-      else if (oldSelfie.includes(selfie[sn].response)){
-        let nsn = Math.floor(Math.random()*selfie.length)
-        let message = `Happy Selfie Sunday @Everyone! Today's theme is **${selfie[nsn].response}** Let's see your selfies fruits!!🍓💖🙃`
-        channel.send(message)
-        oldSelfie.push(message)
       }
       else
       {
         let message = `Happy Selfie Sunday @Everyone! Today's theme is **${selfie[sn].response}** Let's see your selfies fruits!!🍓💖🙃`
         channel.send(message)
-        oldSelfie.push(message)
+        // Appends to the Old Selfie sheet in column A
+        updateSheetData(selfie[sn].response)
+        // Deletes entire rows, based on id
+        deleteOldData(selfie[sn].response)
+        //Pulls in the updated sheet after data has been deleted
+        getSheetData()
       }
         
-         return oldSelfie
+         console.log(selfie)
     }
     
-  },50000)
+  },100)///50 second interval
 })
 
 client.on("messageCreate", msg => {

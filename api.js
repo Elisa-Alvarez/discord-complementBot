@@ -7,7 +7,7 @@ async function getSheetData(){
 
 const auth =  new google.auth.GoogleAuth({
     keyFile: "credentials.json",
-    scopes: "https://www.googleapis.com/auth/spreadsheets.readonly",
+    scopes: "https://www.googleapis.com/auth/spreadsheets",
 });
 
   // Create client instance for auth
@@ -103,13 +103,12 @@ const getRowsNSFW =  await googleSheets.spreadsheets.values.get({
     currentJson ={...currentJson,id:index[0],command:index[1], response:index[2]}
     jsonArr.push(currentJson)
   })
+
   wyr.forEach(index =>{
     currentJson = {...currentJson,id:index[0], command:index[1], response:index[2],responseTwo:index[3]} 
     jsonArr.push(currentJson)
     
   })
-
-
 
   if(fs.existsSync('./data.json')){
     fs.unlinkSync('./data.json')
@@ -123,33 +122,78 @@ const getRowsNSFW =  await googleSheets.spreadsheets.values.get({
   }
 
 }
-// const deleteSelfieTheme = async(props)=>{
-//   const auth =  new google.auth.GoogleAuth({
-//     keyFile: "credentials.json",
-//     scopes: "https://www.googleapis.com/auth/spreadsheets.readonly",
-//   });
-  
-//   // Create client instance for auth
-//   const gclient =  await auth.getClient();
 
-//   // Instance of Google Sheets API
-//   const googleSheets = google.sheets({ version: "v4", auth: gclient });
+async function updateSheetData (props){
 
-//   const updateOldSelfies ={
-//     auth,
-//     spreadsheetId,
-//     range:"Old Selfie Sunday Themes!A2:A",
-//     valueInputOption:'USER_ENTERED',
-//     response:{values:props}
-//   }
-//   const updateRowsOldSelfie = await googleSheets.spreadsheets.values.update(
-//     updateOldSelfies
-//   )
-//   const deleteRowsSelfie = await googleSheets.spreadsheets.values.get({
-//     auth,
-//     spreadsheetId,
-//     range: "Selfie Sunday Themes!A:C",
-//   });
-// }
-// console.log(deleteSelfieTheme(['potato','yellow']))
-module.exports= {getSheetData}
+  const auth =  new google.auth.GoogleAuth({
+    keyFile: "credentials.json",
+    scopes: "https://www.googleapis.com/auth/spreadsheets",
+  });
+
+  const gclient =  await auth.getClient();
+  const gapi = google.sheets({ version: "v4", auth: gclient });
+
+  let values = [
+    [
+     props
+    ]
+  ];
+  let body = {
+    values: values
+  };
+  gapi.spreadsheets.values.append({
+    spreadsheetId: spreadsheetId,
+    range: 'Old Selfie Sunday Themes!A2:A',
+    valueInputOption: 'Raw',
+    resource: body
+  }).then((response) => {
+
+  })
+  .catch(err => {return console.log(err)});
+}
+
+async function deleteOldData (props){
+
+  let authClient =  new google.auth.GoogleAuth({
+    keyFile: "credentials.json",
+    scopes: "https://www.googleapis.com/auth/spreadsheets",
+  });
+
+  const gclient =  await authClient.getClient();
+  const gapi = google.sheets({ version: "v4", auth: gclient });
+
+  const request = {
+    spreadsheetId, 
+    range: `Selfie Sunday Themes!A:C`,  
+    auth: authClient,
+  };
+
+  try {
+    const response = (await gapi.spreadsheets.values.get(request)).data;
+    let index 
+    for(let i = 0; i<response.values.length; i++){
+      
+        response.values[i].indexOf(props) !== -1 ? index = i:false
+       
+    }
+      const delRequest = {
+        spreadsheetId,
+        auth:authClient,
+        resource: {
+          // The ranges to clear, in A1 notation.
+          ranges: [
+            `Selfie Sunday Themes!A${index+1}:C${index+1}`
+          ],  // TODO: Update placeholder value.
+    
+          // TODO: Add desired properties to the request body.
+        },
+   
+      }
+   const deleteValues = ( await gapi.spreadsheets.values.batchClear(delRequest)).data;
+      console.log(JSON.stringify(deleteValues, null, 2));
+
+  } catch (err) {
+    console.error(err);
+  }
+}
+module.exports= {getSheetData,updateSheetData,deleteOldData}
