@@ -1,5 +1,5 @@
 require("dotenv").config();
-const {getSheetData, updateSheetData} = require('./api')
+const {getSheetData, updateSheetData, deleteOldData} = require('./api')
 fs = require('fs')
 const { Client, Intents} = require('discord.js')
 const client = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES] });
